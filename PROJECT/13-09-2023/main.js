@@ -27,40 +27,40 @@ btnGenerate.addEventListener("click", function(){
 switch (month) {
     case 1:
         // Gennaio
-        meseIniziale = "G";
-        break;
-    case 2:
-        meseIniziale = "F";
-        break;
-    case 3:
-        meseIniziale = "M";
-        break;
-    case 4:
         meseIniziale = "A";
         break;
+    case 2:
+        meseIniziale = "B";
+        break;
+    case 3:
+        meseIniziale = "C";
+        break;
+    case 4:
+        meseIniziale = "D";
+        break;
     case 5:
-        meseIniziale = "M";
+        meseIniziale = "E";
         break;
     case 6:
-        meseIniziale = "G";
+        meseIniziale = "H";
         break;
     case 7:
         meseIniziale = "L";
         break;
     case 8:
-        meseIniziale = "A";
+        meseIniziale = "M";
         break;
     case 9:
-        meseIniziale = "S";
+        meseIniziale = "P";
         break;
     case 10:
-        meseIniziale = "O";
+        meseIniziale = "R";
         break;
     case 11:
-        meseIniziale = "N";
+        meseIniziale = "S";
         break;
     case 12:
-        meseIniziale = "D";
+        meseIniziale = "T";
         break;
     default:
         meseIniziale = "Mese non valido";
