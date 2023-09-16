@@ -6,70 +6,91 @@ const city        = document.getElementById("city");
 
 const btnGenerate = document.getElementById("generate");
 
-btnGenerate.function(event => onclick)
+btnGenerate.addEventListener("click", function(){
+    var surnameVal = surname.value.toUpperCase();
+    var nameVal = name.value.toUpperCase();
+    var dateVal = date.value.toUpperCase();
+    var sexVal = sex.value.toUpperCase();
+    var cityVal = city.value.toUpperCase();
+
+    surnameVal = separate(surnameVal);
+
+    nameVal = separate(nameVal);
+
+    data = new Date(dateVal);
+    var day = data.getDate();
+    var month = data.getMonth() + 1;
+    var year = data.getFullYear();
+
+    var meseIniziale;
+
+switch (month) {
+    case 1:
+        // Gennaio
+        meseIniziale = "G";
+        break;
+    case 2:
+        meseIniziale = "F";
+        break;
+    case 3:
+        meseIniziale = "M";
+        break;
+    case 4:
+        meseIniziale = "A";
+        break;
+    case 5:
+        meseIniziale = "M";
+        break;
+    case 6:
+        meseIniziale = "G";
+        break;
+    case 7:
+        meseIniziale = "L";
+        break;
+    case 8:
+        meseIniziale = "A";
+        break;
+    case 9:
+        meseIniziale = "S";
+        break;
+    case 10:
+        meseIniziale = "O";
+        break;
+    case 11:
+        meseIniziale = "N";
+        break;
+    case 12:
+        meseIniziale = "D";
+        break;
+    default:
+        meseIniziale = "Mese non valido";
+    }
+    
+});
+
+
+function separate(str)
 {
-    calculateCodiceFiscale(surname, name, date, sex, city);
-}
-
-function calculateCodiceFiscale(surname, name, date, sex, city) {
-    // Prendi le prime tre consonanti del cognome
-    let consonantsSurname = "";
-    for (let i = 0; i < surname.length && consonantsSurname.length < 3; i++) {
-      const char = surname[i];
-      if (!isVowel(char)) {
-        consonantsSurname += char;
-      }
-    }
-  
-    // Prendi la prima, terza e quarta consonante del nome
-    let consonantsName = "";
-    let consonantCount = 0;
-    for (let i = 0; i < name.length && consonantCount < 4; i++) {
-      const char = name[i];
-      if (!isVowel(char)) {
-        if (consonantCount === 0 || consonantCount === 2 || consonantCount === 3) {
-          consonantsName += char;
+    let result = '';
+    let count = 0;
+    for (let i = 0; i < str.length; i++) 
+    {
+        if (str[i] != 'A' && str[i] != 'E' && str[i] != 'I' && str[i] != 'O' && str[i] != 'U') 
+        {
+            result += str[i];
+            count++;
+            if (count == 3)
+                break;
         }
-        consonantCount++;
-      }
     }
-  
-    // Estrai l'ultima due cifre dell'anno di nascita
-    const yearDigits = date.substring(2, 4);
-  
-    // Estrai il mese di nascita in lettere
-    const month = getMonthLetter(date);
-  
-    // Estrai il giorno di nascita (senza zero iniziale se presente)
-    const day = parseInt(date.split("-")[2], 10);
-  
-    // Genera le due lettere finali basate sul comune di nascita (da implementare)
-  
-    // Componi il codice fiscale
-    const codiceFiscale =
-      consonantsSurname +
-      consonantsName +
-      yearDigits +
-      month +
-      (sex === "M" ? formatDay(day) : (day + 40)) +
-      "Z"; // "Z" è una costante
+    while (count < 3) 
+    {
+        result += "X"
+        count++;
+    }
 
-    return codiceFiscale;
+    if (count > 3)
+        return null;
+
+    return result;
 }
-  
-  function isVowel(char) {
-    return "AEIOU".indexOf(char.toUpperCase()) !== -1;
-  }
-  
-  function getMonthLetter(date) {
-    const months = [
-      "A", "B", "C", "D", "E", "H", "L", "M", "P", "R", "S", "T"
-    ];
-    const monthNumber = parseInt(date.split("-")[1], 10) - 1;
-    return months[monthNumber];
-  }
-  
-  function formatDay(day) {
-    return day < 10 ? "0" + day : day.toString();
-  }
-  
