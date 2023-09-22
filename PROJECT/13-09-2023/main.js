@@ -14,10 +14,10 @@ btnGenerate.addEventListener("click", function()
     var sexVal = sex.value;
     var cityVal = city.value;
 
-    surnameVal = separate(surnameVal);
+    surnameVal = separate(surnameVal, false);
     if(surnameVal == null){alert("Cognome non valido");return;}
 
-    nameVal = separate(nameVal);
+    nameVal = separate(nameVal, true);
     if(nameVal == null){alert("Nome non valido");return;}
 
     var data = new Date(dateVal);
@@ -29,6 +29,10 @@ btnGenerate.addEventListener("click", function()
     var month = data.getMonth() + 1;
     var year = data.getFullYear();
 
+    if(day < 10)
+    {
+        day = "0" + day;
+    }
     var meseIniziale = findMonth(month);
     year = year.toString().substr(-2);
 
@@ -40,7 +44,6 @@ btnGenerate.addEventListener("click", function()
     }
 
     var codicefiscale = surnameVal + nameVal + year + meseIniziale + day + cityVal;
-    console.log(codicefiscale);
     codicefiscale += calculateCodiceControllo(codicefiscale);
 
 
@@ -48,7 +51,7 @@ btnGenerate.addEventListener("click", function()
 });
 
 
-function separate(str)
+function separate(str, name)
 {
     let result = '';
     let count = 0;
@@ -56,12 +59,23 @@ function separate(str)
     {
         if (str[i] != 'A' && str[i] != 'E' && str[i] != 'I' && str[i] != 'O' && str[i] != 'U') 
         {
-            result += str[i];
             count++;
-            if (count == 3)
-                break;
+            result += str[i];
         }
     }
+
+    if(name)
+    {
+        if (count >= 4)
+        {
+        result = result[0] + result[2] + result[3];
+        } 
+    }
+    if (count >= 3)
+    {
+        result = result[0] + result[1] + result[2];
+    }
+
     if (count < 3)
     {
         for (let i = 0; i < str.length; i++)
@@ -77,8 +91,10 @@ function separate(str)
     }
     
 
-    if (count == 0)
-        return null;
+    while (count < 3)
+    {
+        result += 'X';
+    }
 
     return result;
 }
@@ -140,8 +156,11 @@ function findCity(city)
         case "B":
             city += "157";
             break;
-        case "M":
-            city += "189";
+        case "A":
+            city += "944";
+            break;
+        case "E":
+            city += "526";
             break;
         default:
             return null;
@@ -153,24 +172,24 @@ function calculateCodiceControllo(input)
 {
     const evenTable = 
     {
-        A: 0, F: 5, K: 10, P: 15, U: 20,
-        B: 1, G: 6, L: 11, Q: 16, V: 21,
-        C: 2, H: 7, M: 12, R: 17, W: 22,
-        D: 3, I: 8, N: 13, S: 18, X: 23,
-        E: 4, J: 9, O: 14, T: 19, Y: 24,
-        Z: 25, 0: 0, 1: 1, 2: 2, 3: 3, 4: 4,
-        5: 5, 6: 6, 7: 7, 8: 8, 9 : 9
+        'A': 0, 'F': 5, 'K': 10, 'P': 15, 'U': 20,
+        'B': 1, 'G': 6, 'L': 11, 'Q': 16, 'V': 21,
+        'C': 2, 'H': 7, 'M': 12, 'R': 17, 'W': 22,
+        'D': 3, 'I': 8, 'N': 13, 'S': 18, 'X': 23,
+        'E': 4, 'J': 9, 'O': 14, 'T': 19, 'Y': 24,
+        'Z': 25, '0': 0, '1': 1, '2': 2, '3': 3, '4': 4,
+        '5': 5, '6': 6, '7': 7, '8': 8, '9' : 9
     };
 
     const oddTable = 
     {
-        A: 1, F: 13, K: 2, P: 3, U: 16,
-        B: 0, G: 15, L: 4, Q: 6, V: 10,
-        C: 5, H: 17, M: 18, R: 8, W: 22,
-        D: 7, I: 19, N: 20, S: 12, X: 25,
-        E: 9, J: 21, O: 11, T: 14, Y: 24,
-        Z: 23, 0: 1, 1: 0, 2: 5, 3: 7, 4: 9,
-        5: 13, 6: 15, 7: 17, 8: 19, 9: 21
+        'A': 1, 'F': 13, 'K': 2, 'P': 3, 'U': 16,
+        'B': 0, 'G': 15, 'L': 4, 'Q': 6, 'V': 10,
+        'C': 5, 'H': 17, 'M': 18, 'R': 8, 'W': 22,
+        'D': 7, 'I': 19, 'N': 20, 'S': 12, 'X': 25,
+        'E': 9, 'J': 21, 'O': 11, 'T': 14, 'Y': 24,
+        'Z': 23, '0': 1, '1': 0, '2': 5, '3': 7, '4': 9,
+        '5': 13, '6': 15, '7': 17, '8': 19, '9': 21
     };
 
     const checkDigitTable = 
@@ -184,23 +203,19 @@ function calculateCodiceControllo(input)
     }; 
 
 
-    let sumEv = 0;
-    let sumOdd = 0;
-    for (let i = 0; i < 15; i++) 
+    var sum = 0;
+    for (let i = 1; i <= 15; i++) 
     {
-        if (i % 2 == 0) 
+        if (i % 2 === 0) 
         {
-            sumOdd += oddTable[input[i]];
+            sum += evenTable[input[i - 1]];
         }
         else 
         {
-            sumEv += evenTable[input[i]];
+            sum += oddTable[input[i - 1]];
         }
-    }
-    console.log(sumEv);
-    console.log(sumOdd);
 
-    var remainder = (sumEv + sumOdd) % 26;
-    console.log(remainder);
+    }
+    var remainder = sum % 26;
     return checkDigitTable[remainder];
 }
