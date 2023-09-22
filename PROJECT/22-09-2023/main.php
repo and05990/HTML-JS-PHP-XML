@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poligono</title>
-    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <?php
@@ -14,11 +14,10 @@
         require_once("Rettangolo.php");
 
         $r = new Rettangolo(10, 2);
-        echo "<p>".$r -> stampa("RUS")."</p>";
+        echo "<p>".$r -> print("RUS")."</p>";
 
         $q = new Quadrato(5);
-        echo "<p> L'area del quadrato è: ".$q -> getArea()."</p>";
-        echo "<p> Il lato del quadrato è: ".$q -> getLato()."</p>";
+        echo "<p>".$q -> print("ARM")."</p>";
     ?>
 </body>
 </html>

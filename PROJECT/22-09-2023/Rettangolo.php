@@ -25,19 +25,19 @@
             return $this -> base * $this -> altezza;
         }
 
-        public function stampa($lingua)
+        public function print($lingua)
         {
             $frase = "";
             switch ($lingua)
             {
                 case "RUS":
-                    $frase = "Площадь прямоугольника равна: ".$this -> getArea();
+                    $frase = "Район: ".$this -> getArea();
                     break;
                 case "ARM":
-                    $frase = "Ուղղանկյան մակերեսը հետևյալն է. ".$this -> getArea();
+                    $frase = "Տարածքն է. ".$this -> getArea();
                     break;
                 default:
-                    $frase = "L'area del rettangolo è: ".$this -> getArea();
+                    $frase = "L'area è: ".$this -> getArea();
             }
             return $frase;
         }
@@ -53,6 +53,11 @@
         public function getLato()
         {
             return parent::getBase();
+        }
+
+        public function print($lingua)
+        {
+            return parent::print($lingua);
         }
     }
 ?>
