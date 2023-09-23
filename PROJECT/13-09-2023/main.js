@@ -14,6 +14,9 @@ btnGenerate.addEventListener("click", function()
     var sexVal = sex.value;
     var cityVal = city.value;
 
+    var control = contaisNumber(surnameVal, nameVal);
+    if(control){alert("Cognome e nome NON possono contenere NUMERI");return;}
+
     surnameVal = separate(surnameVal, false);
     if(surnameVal == null){alert("Cognome non valido");return;}
 
@@ -21,10 +24,8 @@ btnGenerate.addEventListener("click", function()
     if(nameVal == null){alert("Nome non valido");return;}
 
     var data = new Date(dateVal);
-    if (isNaN(data)) {
-        alert("Data non valida");
-        return;
-    }
+    if (isNaN(data)) {alert("Data non valida");return;}
+
     var day = data.getDate();
     var month = data.getMonth() + 1;
     var year = data.getFullYear();
@@ -71,6 +72,7 @@ function separate(str, name)
         result = result[0] + result[2] + result[3];
         } 
     }
+
     if (count >= 3)
     {
         result = result[0] + result[1] + result[2];
@@ -142,7 +144,6 @@ function findMonth(month)
             break;
         default:
             return null;
-            break;
     }
     return meseIniziale;
 }
@@ -218,4 +219,13 @@ function calculateCodiceControllo(input)
     }
     var remainder = sum % 26;
     return checkDigitTable[remainder];
+}
+
+function contaisNumber(surnameVal, nameVal)
+{
+    const regex = /\d/;
+    if (regex.test(surnameVal) || regex.test(nameVal)) {
+        return true;
+    }
+    return false;
 }
