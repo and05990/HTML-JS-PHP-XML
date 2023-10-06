@@ -7,5 +7,6 @@
         $_SESSION["nQuest"] = 0;
     }
 
-    header("Location: main.php")
+    header("Location: main.php");
+    exit();
 ?>
