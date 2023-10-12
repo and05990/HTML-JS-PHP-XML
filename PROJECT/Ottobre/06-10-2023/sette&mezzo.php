@@ -1,8 +1,8 @@
 <?php
     session_start();
     echo '<link rel="stylesheet" href="style.css">';
-    echo $banco = 0;
-
+    $banco = 0;
+    $score = 0;
 
     if (!isset($_SESSION['mano']))
     {
