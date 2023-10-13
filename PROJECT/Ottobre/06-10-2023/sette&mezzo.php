@@ -1,6 +1,5 @@
 <?php
     session_start();
-    echo '<link rel="stylesheet" href="style.css">';
     $banco = 0;
     $score = 0;
 
@@ -13,12 +12,18 @@
     {
         $_SESSION['punteggio'] = 0;
     }
+
+    if (!isset($_SESSION['banco'])) 
+    {
+        $_SESSION['banco'] = 0;
+    }
+
     function calcolaValoreMano($mano) 
     {
         $valore = 0;
         $carteSetteMezzo = ['1', '2', '3', '4', '5', '6', '7', 'fante', 'cavallo', 're'];
 
-        foreach ($mano as $carta) 
+        foreach ($mano as $carta)
         {
             $cartaValore = explode('_', $carta)[0];
 
@@ -55,17 +60,30 @@
         $_SESSION['punteggio'] = calcolaValoreMano($_SESSION['mano']);
         $score = $_SESSION['punteggio'];
 
-        $min = 0;
-        $max = 16;
-        $banco += mt_rand($min * 2, $max * 2) / 2;
+        $cartaPescata = array_shift($mazzo);
+        $_SESSION['mano'][] = $cartaPescata;
+        $_SESSION['banco'] += calcolaValoreMano($_SESSION['mano']);
+        $banco = $_SESSION['banco'];
 
-        if($_SESSION['punteggio'] == 7.5)
+        if ($banco >= 7.5 || $score >= 7.5) 
         {
-            echo "Hai vinto! Il tuo punteggio è " . $_SESSION['punteggio'];
-            session_unset();
-            session_destroy();
-        } else if ($_SESSION['punteggio'] > 7.5) {
-            echo "Hai perso! Il tuo punteggio è " . $_SESSION['punteggio'];
+            if ($banco == 7.5 && $score == 7.5) 
+            {
+                echo "Pareggio";
+            } else if ($banco == 7.5 && $score < 7.5) {
+                echo "Hai perso";
+            } else if ($banco < 7.5 && $score == 7.5) {
+                echo "Hai vinto";
+            } else if ($banco > 7.5 && $score < 7.5) {
+                echo "Hai vinto";
+            } else if ($banco < 7.5 && $score > 7.5) {
+                echo "Hai perso";
+            } else if ($banco > 7.5 && $score > $banco) {
+                echo "Hai perso";
+            } else if ($banco > 7.5 && $score < $banco) {
+                echo "Hai vinto";
+            }
+            echo "<script>document.getElementsByName('nuova_carta')[0].disabled = true;</script>";
             session_unset();
             session_destroy();
         }
@@ -81,9 +99,10 @@
 <body>
     <h1>Sette e Mezzo</h1>
     <p>Il tuo punteggio: <?php echo $score; ?></p>
-    
+    <p>Il banco sta a: <?php echo $banco; ?></p>
     <form method="post">
         <input type="submit" name="nuova_carta" value="Pesca una nuova carta">
+        <input type="submit" name="ferma" value="Reset">
     </form>
 </body>
 </html>
