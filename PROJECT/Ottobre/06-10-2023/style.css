@@ -1,6 +1,8 @@
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
+    text-align: center;
 }
 
 h1 {
@@ -11,6 +13,8 @@ h1 {
 p {
     font-size: 1.2em;
     color: #333;
+    font-weight: bold;
+    text-align: center;
 }
 
 form {
