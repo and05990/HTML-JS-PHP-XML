@@ -7,18 +7,27 @@
   let hobby = "";
 
   $: years = date ? Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000 / 60 / 60 / 24 / 365.25) : 0;
+
+  function copyToClipboard() {
+    const textBoard = document.getElementById('textBoard');
+    const text = textBoard.innerText;
+    navigator.clipboard.writeText(text);
+  }
 </script>
 
 <main>
-  <h1>Hello {name}!</h1>
-  <hr />
-  <p> You are {years} years old and you {enjoyCoding ? "" : "don't"} enjoy coding. </p> 
-  <p> You {haveAnimals ? "really like" : "don't have"} animals
-  {#if haveAnimals}
-    indeed you {cat ? "" : "don't"} have a cat.
-  {/if}
-  </p>
-  <p> Your hobby is {hobby}. </p>
+  <div id="textBoard">
+    <h1>Hello {name}!</h1>
+    <hr />
+    <p> You are {years} years old and you {enjoyCoding ? "" : "don't"} enjoy coding. </p> 
+    <p> You {haveAnimals ? "really like" : "don't have"} animals
+    {#if haveAnimals}
+      indeed you {cat ? "" : "don't"} have a cat.
+    {/if}
+    </p>
+    <p> Your hobby is {hobby}. </p>
+  </div>
+  <button on:click={copyToClipboard}>Copy text</button>
   <hr /> 
   <input type="text" bind:value={name} />
   <input type="date" bind:value={date}>
