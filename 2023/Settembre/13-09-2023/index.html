@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CFApp</title>
+</head>
+<body>
+    <h1>Calcolatore Codice fiscale</h1>
+    <div class="input">
+        <input type="text" name="Cognome" id="surname" placeholder="Cognome">
+        <input type="text" name="Nome" id="name" placeholder="Nome">
+        <input type="date" name="Data" id="date">
+
+        <select name="Sesso" id="sex">
+            <option value="man">Uomo</option>
+            <option value="woman">Donna</option>
+        </select>
+        
+        <select name="Citta" id="city">
+            <option value="B">Brescia</option>
+            <option value="A">Bologna</option>
+            <option value="E">Leno</option>
+        </select>
+    </div>
+    <button id="generate">Calcola</button>
+    <script src="main.js"></script>
+</body>
+</html>

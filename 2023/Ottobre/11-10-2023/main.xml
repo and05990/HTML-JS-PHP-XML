@@ -1,0 +1,78 @@
+<!-- <ordine>
+    <cliente tipo="abituale">Paolo Rossi</cliente>
+    <domicilio>
+        <citta>Livorno</citta>
+        <strada>via dei Pensieri</strada>
+        <civico>60</civico>
+    </domicilio>
+    <email>p.rossi@mail.com</email>
+    <richiesta>
+    <giorno>10/06/2013</giorno>
+    <ora>09.30</ora>
+    </richiesta>
+    <consegna>
+    <luogo tipo="domicilio"/>
+    <giorno>10/06/2013</giorno>
+    <ora>
+        <minima>13.30</minima>
+        <massima>14.00</massima>
+    </ora>
+        <pagamento mezzo="carta di credito" quando="dopo consegna"/>
+    </consegna>
+</ordine>  -->
+
+<ordine>
+    <carrello>
+    <articolo>
+    <categoria>latte</categoria>
+    <confezioni>2</confezioni>
+    <confezione>
+        <tipologia>parzialmente scremato</tipologia>
+        <grandezza unita="lt">1</grandezza>
+        <scadenza unita="gg" giorno_riferimento="consegna">4</scadenza>
+    </confezione>
+    </articolo>
+    <articolo>
+        Cimino - Informatica per la Logistica – Esercitazione pre-esame – slide 3 di 4
+        <categoria>gelato</categoria>
+        <marca>Slurp</marca>
+        <gusto>Limone</gusto>
+        <confezioni>1</confezioni>
+        <confezione>
+            <peso unita="gr">500</peso>
+        </confezione>
+    </articolo>
+    <articolo>
+        <categoria>caffè</categoria>
+        <marca>Hug</marca>
+        <confezioni>1</confezioni>
+        <confezione>
+        <quantita unita="bustine">20</quantita>
+        </confezione>
+    </articolo>
+    <articolo>
+        <categoria>pane</categoria>
+        <confezioni>2</confezioni>
+        <confezione>
+        <peso unita="gr">500</peso>
+        <ingrediente modalita="assente">sale</ingrediente>
+        </confezione>
+    </articolo>
+    <articolo>
+        <categoria>pomodoro</categoria>
+        <confezione>
+            <tipologia>oblungo rosso</tipologia>
+            <peso unita="kg">0.5</peso>
+                Cimino - Informatica per la Logistica – Esercitazione pre-esame – slide 4 di 4
+        </confezione>
+    </articolo>
+    <articolo>
+        <categoria>acqua</categoria>
+        <confezioni>1</confezioni>
+        <confezione>
+            <tipologia>naturale</tipologia>
+            <quantita unita="bottiglie">6</quantita>
+        </confezione>
+    </articolo>
+    </carrello>
+</ordine> 
