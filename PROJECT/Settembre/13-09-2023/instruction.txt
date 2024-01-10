@@ -1,6 +1,0 @@
-Nome
-Cognome
-Datta di nascita (se F +40 nel giorno)
-Sesso
-Luogo di nascita (Codice ISTAT: 8157)
-Codice di controllo (calcolato)
