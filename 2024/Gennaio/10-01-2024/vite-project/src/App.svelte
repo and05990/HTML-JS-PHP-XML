@@ -3,14 +3,27 @@
   let importoD = 1;
   let saldo = 10000;
     function preleva() {
-      if (saldo > 0)
-        saldo = saldo - importo;
-      else
+      if (importo <= 0) {
+        alert("Inserisci un importo valido!");
+        return;
+      }
+      if (importo > saldo) {
         alert("Non hai abbastanza soldi!");
+        return;
+      }
+      if (saldo <= 0) {
+        alert("Non hai abbastanza soldi!");
+        saldo = 0;
+        return;
+      }
+
+      saldo = saldo - importo;
+      importo = 0;
     }
 
     function deposita() {
       saldo = saldo + importoD; 
+      importoD = 1;
     }
 </script>
 
@@ -22,7 +35,7 @@
       <hr>
       <h3>Saldo: {saldo}€</h3>
       <p>Selezionarel'importo da prelevare:
-        <input type="range" name="importo" bind:value={importo} min="1" max="{saldo}"> €
+        <input type="range" name="importo" bind:value={importo} min="0" max="{saldo}"> €
         <output for="importo">{importo}</output>
       </p>
       <hr>
